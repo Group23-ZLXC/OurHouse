@@ -1,0 +1,483 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <script type="text/javascript" src="../static/js/jquery.min.js"></script>
+    <title>OurHouse</title>
+</head>
+
+<body>
+    <table style="color:rgb(241, 241, 241); margin-left: 30px; margin-top: 40px;width: 95%;">
+        <tr>
+            <td style="width: 22.5%;">
+                <p style="font-size: 4rem;"><span class="glyphicon glyphicon-home"></span>&nbsp;OurHouse</p>
+            </td>
+            <td style="width: 7.5%;">
+                <p
+                    style="font-size: 1.5rem;border: 2px solid rgb(241, 241, 241);border-radius: 30px;padding: 5px;margin-top: 10px;">
+                    <span class="glyphicon glyphicon-map-marker"></span>&nbsp;&nbsp;Beijing
+                </p>
+            </td>
+            {% if user %}
+            <td style="width: 70%;" align="right"><a class="link" style="margin-right: 20px"
+                    href="{{ url_for('personal') }}"><span class="glyphicon glyphicon-tasks"></span>&nbsp;{{
+                    user.username }},Hi&nbsp;!</a><a class="link" href="{{ url_for('logout') }}"><span
+                        class="glyphicon glyphicon-log-out"></span>&nbsp;Log Out</a></td>
+            {% else %}
+            <td style="width: 70%;" align="right"><a class="link" style="margin-right: 20px"
+                    href="{{ url_for('login') }}"><span class="	glyphicon glyphicon-log-in"></span>&nbsp;Log in</a><a
+                    class="link" href="{{ url_for('signup') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;Sign
+                    up</a></td>
+            {% endif %}
+        </tr>
+    </table>
+
+    <table style="margin-top: 110px;margin-left: 30px;width: 95%;">
+        <tr>
+            <td colspan="3" style="font-size: 8rem;" align="center"><b
+                    style="color: rgb(241, 241, 241);text-shadow: 10px 10px 10px rgb(105, 105, 105);">Start looking for
+                    your home</b></td>
+        </tr>
+        <tr>
+            <td style="padding-top: 70px;" align="center"><button class="button"
+                    style="vertical-align:middle;box-shadow: 10px 10px 10px rgb(105, 105, 105);"
+                    onclick="buy()"><span>Buy </span></button></td>
+            <td style="padding-top: 70px;" align="center"><button class="button"
+                    style="vertical-align:middle;box-shadow: 10px 10px 10px rgb(105, 105, 105);"
+                    onclick="predict()"><span>Predict </span></button></td>
+            <td style="padding-top: 70px;" align="center"><button class="button"
+                    style="vertical-align:middle;box-shadow: 10px 10px 10px rgb(105, 105, 105);"
+                    onclick="personal()"><span>Personal</span></button></td>
+        </tr>
+
+
+    </table>
+
+    <div class="lb_gl">
+        <div class="container">
+            <h1 class="title"><b><span class="glyphicon glyphicon-align-right"></span>&nbsp;&nbsp;New House
+                    Recently&nbsp;&nbsp;<span class="glyphicon glyphicon-align-left"></span></b></h1>
+            <div class="pictureSlider poster-main">
+                <div class="poster-btn poster-prev-btn"></div>
+                <div id="zturn" class="poster-list">
+                    {% for house in houses %}
+                    <div class="poster-item  zturn-item">
+                        <p class="houseid">House ID: {{ house.id }}</p>
+                        <div class="for_btn">
+                            <a href="{{ url_for('details', house_id=house.id )}}" id="image">
+                                {% for i in imgs %}
+                                {% if i.house_id == house.id %}
+                                <img src="{{ i.filepath }}" alt="{{ i.filepath }}" width="100%" height="190px">
+                                {% endif %}
+                                {% endfor %}
+                            </a>
+                        </div>
+
+                        <div class="property">
+                            <p class="pro">Total Price：<span class="per">¥ {{ '%.2f' %(house.total_price) }}</span>
+                            </p>
+                            <p class="pro"><span>Square：<span class="per">{{ house.square }} m<sup>2</sup></span></span>
+                            </p>
+                            <div class="recommendation">
+                                {% for r in recommendations %}
+                                {% if r.house_id == house.id %}
+                                {{ r.reason }}
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <hr style="margin:30px 30px 50px 30px;">
+    <div style="margin:50px 30px 20px 30px">
+        <h1 align="center"><b><span class="glyphicon glyphicon-align-right"></span>&nbsp;&nbsp;Our Data&nbsp;&nbsp;<span
+                    class="glyphicon glyphicon-align-left"></span></b></h1>
+        <table style="width: 100%;margin-top: 50px;">
+            <tr>
+                <td rowspan="4" style="width: 63%;">
+                    <div id="years" style="width:100%;height:400px"></div>
+                </td>
+                <td align="center" style="height: 25%;">
+                    <div id="grad1">
+                        <p style="padding-top: 27px;font-size: 20px;color: white;text-shadow: 3px 3px 5px #5984ac;">
+                            <b>Total number of houses sold:</b> 318851
+                        </p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" style="height: 25%;">
+                    <div id="grad1">
+                        <p style="padding-top: 27px;font-size: 20px;color: white;text-shadow: 3px 3px 5px #5984ac;">
+                            <b>Total turnover:</b> 1112.89 billion
+                        </p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" style="height: 25%;">
+                    <div id="grad1">
+                        <p style="padding-top: 27px;font-size: 20px;color: white;text-shadow: 3px 3px 5px #5984ac;">
+                            <b>Total followers:</b> 5334858
+                        </p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" style="height: 25%;">
+                </td>
+            </tr>
+        </table>
+
+    </div>
+    <hr style="margin:50px 30px 50px 30px;">
+    <div style="margin-top: 50px;margin-left: 30px;margin-right: 30px;margin-bottom: 150px;">
+
+        <h1 align="center"><b><span class="glyphicon glyphicon-align-right"></span>&nbsp;&nbsp;Why Choose
+                Us&nbsp;&nbsp;<span class="glyphicon glyphicon-align-left"></span></b></h1>
+
+        <table style="margin-top: 100px;margin-left: 20px;margin-right: 30px;">
+            <tr align="center">
+                <td style="width: 25%;"><img src="../static/img/1.png" alt="features" /></td>
+                <td style="width: 25%;"><img src="../static/img/2.png" alt="features" /></td>
+                <td style="width: 25%;"><img src="../static/img/3.png" alt="features" /></td>
+                <td style="width: 25%;"><img src="../static/img/4.png" alt="features" /></td>
+            </tr>
+            <tr align="center" style="font-size: 2.5rem;color: #638ccf;">
+                <td style="padding-top: 20px;"><b>Location</b></td>
+                <td style="padding-top: 20px;"><b>Attribute Filter</b></td>
+                <td style="padding-top: 20px;"><b>More Data</b></td>
+                <td style="padding-top: 20px;"><b>Predict Prices</b></td>
+            </tr>
+            <tr align="center" style="color: gray;">
+                <td style="padding-top: 20px;padding-left: 5px;padding-right: 5px;">Our information of houses are all in
+                    <b>Beijing</b>, providing all kinds of houses for Beijing
+                    users.
+                </td>
+                <td style="padding-top: 20px;padding-left: 5px;padding-right: 5px;">We provide users with attribute
+                    filters to facilitate you to find houses
+                    according to their needs.</td>
+                <td style="padding-top: 20px;padding-left: 5px;padding-right: 5px;">Our database includes the house data
+                    of Beijing in the past <b>8</b> years,
+                    covering up to <b>13</b> districts in Beijing.</td>
+                <td style="padding-top: 20px;padding-left: 5px;padding-right: 5px;">We provide the service of predicting
+                    house price
+                    by inputting the information you know.</td>
+            </tr>
+        </table>
+    </div>
+
+    {% include 'footer.html' %}
+</body>
+<style>
+    body {
+        background-repeat: no-repeat;
+        background-image: url("../static/img/backg.png");
+        background-size: 100% 25%;
+    }
+
+    .link:link {
+        color: rgb(241, 241, 241);
+    }
+
+    .link:hover {
+        color: rgb(241, 241, 241);
+    }
+
+    .link:visited {
+        color: rgb(241, 241, 241);
+    }
+
+    .button {
+        display: inline-block;
+        border-radius: 4px;
+        background-color: #000000;
+        border: none;
+        color: rgb(241, 241, 241);
+        text-align: center;
+        font-size: 28px;
+        padding: 20px;
+        width: 200px;
+        transition: all 0.5s;
+        cursor: pointer;
+        margin: 5px;
+    }
+
+    .button span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+    }
+
+    .button span:after {
+        content: '»';
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        right: -20px;
+        transition: 0.5s;
+    }
+
+    .button:hover span {
+        padding-right: 25px;
+    }
+
+    .button:hover span:after {
+        opacity: 1;
+        right: 0;
+    }
+
+    #grad1 {
+        height: 80px;
+        width: 87%;
+        background-color: red;
+        border: 0px;
+        border-radius: 10px;
+        /* 浏览器不支持时显示 */
+        background-image: linear-gradient(#cadbeb, #7cb5ec);
+    }
+
+    .lb_gl {
+        margin-top: 190px;
+        margin-bottom: 30px;
+        background-size: 100% 100%;
+        height: 110%;
+    }
+
+    .container {
+        width: 100%;
+        position: relative;
+    }
+
+    .pictureSlider {
+        height: 73%;
+        margin-bottom: 20px;
+    }
+
+    .poster-item {
+        background: #fff;
+        height: 73%;
+        width: 336px;
+        border-radius: 10px;
+        padding: 20px 23px 20px 23px;
+        border: 3px dotted #bebebe;
+        transition: all 0.5s;
+        cursor: default;
+        -moz-transition: all 0.5s;
+        cursor: default;
+        -webkit-transition: all 0.5s;
+        cursor: default;
+        -o-transition: all 0.5s;
+        cursor: default;
+    }
+
+    .title {
+        text-align: center;
+        color: #000000;
+        font-weight: 400;
+        font-size: 36px;
+        padding: 28px 28px;
+        margin-bottom: 30px;
+    }
+
+    .houseid {
+        font-size: 30px;
+        font-weight: 900;
+        padding-left: 10px;
+    }
+
+    .pro {
+        margin-bottom: 20px;
+        color: #999;
+        font-size: 18px;
+        overflow: hidden;
+    }
+
+    .per {
+        color: #000;
+        padding-left: 10px;
+    }
+
+    .recommendation {
+        border-top: 1px solid #d0cddb;
+        line-height: 26px;
+        padding-top: 5px;
+        color: #999;
+        font-size: 12px;
+        max-height: 84px;
+        overflow: hidden;
+    }
+
+    .for_btn {
+        position: relative;
+        height: 214px;
+        overflow: hidden
+    }
+
+    .in_page {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 40px;
+        height: 40px;
+        margin-left: -20px;
+        margin-top: -20px;
+    }
+
+    .in_page>img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .check_more {
+        width: 180px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        color: #fff;
+        background: #bc241d;
+        margin: 0 auto;
+        display: block;
+    }
+</style>
+<script src="http://cdn.highcharts.com.cn/highcharts/highcharts.js"></script>
+
+<script>
+    var zturn = function (turn) {
+        this.turn = turn
+        this.zturn = $("#" + turn.id)
+        this.X = 0
+        this.zturnitem = this.zturn.children(".zturn-item")
+        this.num_li = this.zturnitem.length//轮播元素个数 zturnPy为每个的偏移量
+        this.zturnPy = turn.Awidth / (this.num_li - 1)
+        this.init()
+        this.turn_()
+        return this
+    }
+    zturn.prototype = {
+        constructor: zturn,
+        init: function () {
+            var _self = this;
+            this.zturn.children(".zturn-item").each(function (index, element) {
+                //index是第几个元素 X是选取的中间数 num_li是总数
+                var rt = 1//1:右侧：-1：左侧
+                if ((index - _self.X) > _self.num_li / 2 || (index - _self.X) < 0 && (index - _self.X) > (-_self.num_li / 2)) { rt = -1 }//判断元素左侧还是右侧
+                var i = Math.abs(index - _self.X);//取绝对值
+                if (i > _self.num_li / 2) { i = parseInt(_self.X) + parseInt(_self.num_li) - index; }//i:是左或者右的第几个
+                if ((index - _self.X) < (-_self.num_li / 2)) { i = _self.num_li + index - _self.X }
+                $(this).css({
+                    'position': 'absolute',
+                    'left': '50%',
+                    'margin-left': -_self.turn.width / 2 + 23 + _self.zturnPy * rt * i + "px",
+                    'z-index': _self.num_li - i,
+                    'opacity': Math.pow(_self.turn.opacity, i),
+                    'transform': 'scale(' + Math.pow(_self.turn.scale, i) + ')',
+                    '-webkit-transform': 'scale(' + Math.pow(_self.turn.scale, i) + ')',
+                    '-webkit-transform': 'scale(' + Math.pow(_self.turn.scale, i) + ')',
+                    '-moz-transform': 'scale(' + Math.pow(_self.turn.scale, i) + ')',
+                    '-ms-transform': 'scale(' + Math.pow(_self.turn.scale, i) + ')',
+                    '-o-transform': 'scale(' + Math.pow(_self.turn.scale, i) + ')'
+                })
+                $(this).attr("data_n", index)
+            })
+        },
+        turn_: function () {
+            var _self = this
+            this.zturnitem.click(function () {
+                _self.X = $(this).attr("data_n")
+                _self.init()
+            })
+        },
+        prev_: function () {
+            var _self = this
+            this.X--
+            if (this.X < 0) { this.X = this.num_li - 1 }
+            this.init()
+        },
+        next_: function () {
+            var _self = this
+            this.X++
+            if (this.X >= this.num_li) { this.X = 0 }
+            this.init()
+        }
+    }
+    function buy() {
+        window.location.href = "{{ url_for('buy') }}";
+    }
+    function predict() {
+        window.location.href = "{{ url_for('predict') }}";
+    }
+    function personal() {
+        window.location.href = "{{ url_for('personal') }}";
+    }
+    // 图表配置
+    var years = {
+        chart: {
+            type: 'area'
+        },
+        title: {
+            text: 'Number of Houses Sold Per Year'                 // 标题
+        },
+        xAxis: {
+            categories: ['before 2013', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020']
+        },
+        yAxis: {
+            title: {
+                text: 'Number of Houses'                // y 轴标题
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        plotOptions: {
+            area: {
+                fillOpacity: 0.3,
+                marker: {
+                    enabled: false,
+                    symbol: 'circle',
+                    radius: 2,
+                    states: {
+                        hover: {
+                            enabled: true
+                        }
+                    }
+                }
+            }
+        },
+        series: [{                              // 数据列
+            name: 'Number of House',                        // 数据列名
+            data: [6, 189, 6010, 37221, 38751, 32602, 43217, 69805, 90829]
+        }]
+    };
+    var chart_years = Highcharts.chart('years', years);
+
+    var aa = new zturn({
+        id: "zturn",
+        opacity: 0.9,
+        width: 382,
+        Awidth: 1024,
+        scale: 0.9
+    })
+    var ab = new zturn({
+        id: "zturn2",
+        opacity: 0.8,
+        width: 382,
+        Awidth: 1024,
+        scale: 0.6
+    })
+
+</script>
+
+</html>

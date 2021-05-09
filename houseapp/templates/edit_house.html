@@ -1,0 +1,282 @@
+{% extends "base.html" %}
+{% block content %}
+<head>    
+  <meta charset="utf-8">  
+  <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">  
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div style=" margin-top: 60px; margin-left: 45px;margin-right: 45px;">
+<table style="width: 100%;">
+  <tr>
+    <td><p style="font-size: 3.5rem;margin-left: 5px;margin-right: 5px;"><span class="	glyphicon glyphicon-hand-right"></span>&nbsp;&nbsp;<b>Edit House ID: {{ house.id }}</b>&nbsp;&nbsp;<span class="glyphicon glyphicon-hand-left"></span></p></td>
+    <td style="vertical-align: middle;padding-right: 5px;" align="right">
+      <a href="{{ url_for('details',house_id=house.id) }}"><button class="btn btn-defult" type="button"
+          name="button"><span class="glyphicon glyphicon glyphicon-eye-open"
+            style="padding-top: 3px;"></span>&nbsp;Preview</button></a>
+    </td>
+  </tr>
+</table>
+  <form action="" method="post" enctype="multipart/form-data" novalidate>
+    {{ form.hidden_tag() }}
+
+    <table style="width: 100%;">
+      <tr>
+        <td style="width: 50%;padding:5px">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h2 class="panel-title" style="font-size: 20px;">
+                <b>Details</b>
+              </h2>
+            </div>
+            <div class="panel-body">
+              <table class="table table-condensed">
+                <tr>
+                  <td style="padding-left: 20px;vertical-align: middle;">Total Price</td>
+                  <td width="50%" style="vertical-align: middle;"><b>
+                    <div class="input-group" style="width: 100%;">
+                      <span class="input-group-addon">¥</span>
+                      {{ form.price(class_="form-control") }}
+                  </div></b></td>
+                </tr>
+                <tr>
+                  <td style="padding-left: 20px;vertical-align: middle;">Building Type:</td>
+                  {% if house.building_type == 1 %}
+                  <td width="50%" style="vertical-align: middle;"><b>Tower</b></td>
+                  {% elif house.building_type == 2 %}
+                  <td width="50%" style="vertical-align: middle;"><b>Bungalow</b></td>
+                  {% elif house.building_type == 3 %}
+                  <td width="50%" style="vertical-align: middle;"><b>Plate & Tower</b></td>
+                  {% elif house.building_type == 4 %}
+                  <td width="50%" style="vertical-align: middle;"><b>Plate</b></td>
+                  {% endif %}
+                </tr>
+
+                <tr class="active">
+                  <td style="padding-left: 20px;vertical-align: middle;">Square:</td>
+                  <td width="50%" style="vertical-align: middle;"><b>{{ house.square }} sq metres</b></td>
+                </tr>
+                <tr>
+                  <td style="padding-left: 20px;vertical-align: middle;">Floor:</td>
+                  <td width="50%" style="vertical-align: middle;"><b>{{ house.floor }}</b></td>
+                </tr>
+
+                <tr class="active">
+                  <td style="padding-left: 20px;vertical-align: middle;">Renovation Type:</td>
+                  {% if house.renovation_con == 1 %}
+                  <td width="50%" style="vertical-align: middle;"><b>Other</b></td>
+                  {% elif house.renovation_con == 2 %}
+                  <td width="50%" style="vertical-align: middle;"><b>Rough</b></td>
+                  {% elif house.renovation_con == 3 %}
+                  <td width="50%" style="vertical-align: middle;"><b>Simplicity</b></td>
+                  {% elif house.renovation_con == 4 %}
+                  <td width="50%" style="vertical-align: middle;"><b>Hardcover</b></td>
+                  {% endif %}
+                </tr>
+
+                <tr>
+                  <td style="padding-left: 20px;vertical-align: middle;">District:</td>
+                  {% if house.district == 1 %}
+                  <td width="50%" style="vertical-align: middle;"><b>DongCheng</b></td>
+                  {% elif house.district == 2 %}
+                  <td width="50%" style="vertical-align: middle;"><b>FengTai</b></td>
+                  {% elif house.district == 3 %}
+                  <td width="50%" style="vertical-align: middle;"><b>TongZhou</b></td>
+                  {% elif house.district == 4 %}
+                  <td width="50%" style="vertical-align: middle;"><b>DaXing</b></td>
+                  {% elif house.district == 5 %}
+                  <td width="50%" style="vertical-align: middle;"><b>FangShan</b></td>
+                  {% elif house.district == 6 %}
+                  <td width="50%" style="vertical-align: middle;"><b>ChangPing</b></td>
+                  {% elif house.district == 7 %}
+                  <td width="50%" style="vertical-align: middle;"><b>ChaoYang</b></td>
+                  {% elif house.district == 8 %}
+                  <td width="50%" style="vertical-align: middle;"><b>HaiDian</b></td>
+                  {% elif house.district == 9 %}
+                  <td width="50%" style="vertical-align: middle;"><b>XiCheng</b></td>
+                  {% elif house.district == 10 %}
+                  <td width="50%" style="vertical-align: middle;"><b>ShiJingShan</b></td>
+                  {% elif house.district == 11 %}
+                  <td width="50%" style="vertical-align: middle;"><b>PingGu</b></td>
+                  {% elif house.district == 12 %}
+                  <td width="50%" style="vertical-align: middle;"><b>MenTouGou</b></td>
+                  {% elif house.district == 13 %}
+                  <td width="50%" style="vertical-align: middle;"><b>ShunYi</b></td>
+                  {% endif %}
+                </tr>
+                <tr class="active">
+                  <td style="padding-left: 20px;vertical-align: middle;">Livingroom:</td>
+                  <td width="50%" style="vertical-align: middle;"><b>{{ house.living_room }}</b></td>
+                </tr>
+                <tr>
+                  <td style="padding-left: 20px;vertical-align: middle;">Drawingroom:</td>
+                  <td width="50%" style="vertical-align: middle;"><b>{{ house.drawing_room }}</b></td>
+                </tr>
+                <tr class="active">
+                  <td style="padding-left: 20px;vertical-align: middle;">Kitchen:</td>
+                  <td width="50%" style="vertical-align: middle;"><b>{{ house.kitchen }}</b></td>
+                </tr>
+                <tr>
+                  <td style="padding-left: 20px;vertical-align: middle;">Bathroom:</td>
+                  <td width="50%" style="vertical-align: middle;"><b>{{ house.bathroom }}</b></td>
+                </tr>
+                <tr class="active">
+                  <td style="padding-left: 20px;vertical-align: middle;">Floor:</td>
+                  <td width="50%" style="vertical-align: middle;"><b>{{ house.floor }}</b></td>
+                </tr>
+                <tr>
+                  <td style="padding-left: 20px;vertical-align: middle;">Elevator: </td>
+                  {% if house.elevator == 1 %}
+                  <td width="50%" style="vertical-align: middle;"><b>Available</b></td>
+                  {% elif house.elevator == 0 %}
+                  <td width="50%" style="vertical-align: middle;"><b>Not Available</b></td>
+                  {% endif %}
+                </tr>
+                <tr class="active">
+                  <td style="padding-left: 20px;vertical-align: middle;">Subway: </td>
+                  {% if house.subway == 1 %}
+                  <td width="50%" style="vertical-align: middle;"><b>Available</b></td>
+                  {% elif house.subway == 0 %}
+                  <td width="50%" style="vertical-align: middle;"><b>Not Available</b></td>
+                  {% endif %}
+                </tr>
+              </table>
+            </div>
+          </div>
+        </td>
+        <td style="width: 100%;height: 100%;padding:5px;vertical-align: top;">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h2 class="panel-title" style="font-size: 20px;">
+                <b>House features (reasons for recommendation)</b>
+              </h2>
+            </div>
+            <div class="panel-body">
+              {% if not stored_recomm %}
+            <p style="margin: 10px 0 9.5px 20px;">Write someting to make your house more attractive and
+              competitive!</p>
+            {% endif %}
+            <div class="panel-body">
+              <p>{{ form.reason(rows=16, cols=80, class="form-control") }}</p>
+            </div>
+            <p align="right" style="margin-right: 15px;">{{ form.submit(class="btn btn-defult") }}</p>
+            </div>
+            
+          </div>
+        </td>{% for error in form.reason.errors %}
+              <div id="error" class="alert alert-warning" style="margin-top: 10px;"> 
+                <strong> ！</strong>The input of <b>"House features (reasons for recommendation)"</b> cannot be empty.
+              </div>
+              {% endfor %}
+      </tr>
+      <tr>
+        <td colspan="2" style="padding:5px">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h2 class="panel-title" style="font-size: 20px;">
+                <b>Images</b>
+              </h2>
+            </div>
+            <div class="panel-body">
+              <table style="width: 92.5%;">
+                <tr>
+                  <td><p>{{ form.img() }}</p></td>
+                  <td align="right"><p>{{ form.submit(class="btn btn-info") }}</p></td>
+                </tr>
+              </table>
+            </div>
+            {% if stored_images %}
+            <ul class="list-group">
+              {% for i in stored_images %}
+              <li class="list-group-item">
+                <table style="width: 100%;">
+                  <tr>
+                    <td style="width: 50%;">{{ i.filename }}</td>
+                    <td style="width: 30%;" align="center"><img src="{{ i.filepath }}" alt="{{ i.filepath }}" width="150px" height="90px" class="img-rounded"></td>
+                    <td style="width: 20%;" align="center"><button class="btn btn-danger btn-xs" type="button" name="button" data-toggle="modal" data-target="#de{{ i.id }}">Delete</button></td>
+                    <!-- <td style="width: 20%;" align="center"><a href="{{ url_for('delete_img', img_id=i.id) }}"><button class="btn btn-danger btn-xs" type="button" name="button" data-toggle="modal" data-target="#delete{{ i.id }}">Delete</button></a></td> -->
+                  </tr> 
+                  {% if stored_images|length > 1 %}
+                  <div class="modal fade" id="de{{ i.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                          </button>
+                          <h4 class="modal-title" id="myModalLabel">
+                            Are you sure to delete?
+                          </h4>
+                        </div>
+                        <div class="modal-body">
+                          You will delete the image:&nbsp;<b>{{ i.filename }}</b>.
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">No
+                          </button>
+                          <a href="{{ url_for('delete_img', img_id=i.id) }}"><button type="button" class="btn btn-success btn-sm">Yes
+                          </button></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div> 
+                  {% elif stored_images|length == 1 %}  
+                  <div class="modal fade" id="de{{ i.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                          </button>
+                          <h4 class="modal-title" id="myModalLabel">
+                            Cannot delete!
+                          </h4>
+                        </div>
+                        <div class="modal-body">
+                          You have to store at least one picture.
+                        </div>
+                        <div class="modal-footer">
+                          <a href=""><button type="button" class="btn btn-success btn-sm" style="display: none;">
+                          </button></a>
+                          <button type="button" class="btn btn-success btn-sm" data-dismiss="modal">Ok</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>  
+                  {% endif %}        
+                </table>
+            
+              </li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+        </td>
+      </tr>
+     
+
+    </table>
+
+
+
+</div>
+</body>
+<!-- {% for i in range(10) %}
+    <canvas id="{{i}}" width="50" height="50" style="border:1px solid #a0a0a0;border-radius: 5px;"
+        onclick="fill_square({{ i }})">
+    </canvas>
+    {% endfor %} -->
+    <script>
+      function fill_square(a){
+          var c = document.getElementById(a);
+          var ctx=c.getContext("2d");
+          ctx.rect(0,0,100,100);
+          ctx.fillStyle = "green";
+          ctx.fill();
+      }
+  </script>
+
+{% include 'footer.html' %}
+{% endblock %}

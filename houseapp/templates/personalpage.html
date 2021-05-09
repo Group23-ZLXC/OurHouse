@@ -1,0 +1,264 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<head>    
+  <meta charset="utf-8">    
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">  
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  <div style="margin-top: 60px;margin-left: 50px;margin-right: 50px;margin-bottom: 30px;">
+    <table width="100%">
+      <tr>
+        <td>
+          <p style="font-size: 3.5rem;"><span class="	glyphicon glyphicon-hand-right"></span>&nbsp;&nbsp;<b>My
+              Predictions</b>&nbsp;&nbsp;<span class="glyphicon glyphicon-hand-left"></span></p>
+        </td>
+        <td align="right" style="vertical-align: bottom;">
+          <p style="font-size: 1.5rem;"> Add a new prediction? <a href="{{ url_for('predict') }}"><span
+                class="glyphicon glyphicon-stats"></span>&nbsp;Predict</a></p>
+        </td>
+      </tr>
+    </table>
+
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <h3 class="panel-title"><b>Completed</b></h3>
+      </div>
+      <div class="panel-body">
+        <table width="100%" class="table table-hover">
+          {% if houses %}
+          {% if completed != 0 %}
+          <tr>
+            <th style="padding-left: 5px;width:10%"> House ID</th>
+            <th style="padding-left: 5px;width:15%"> Date </th>
+            <th style="padding-left: 5px;width:15%"> Price </th>
+            <th style="padding-left: 5px;width:15%"> Square </th>
+            <th style="padding-left: 5px;width:15%"> Average Price </th>
+            <th style="padding-left: 5px;width:10%"> Preview </th>
+            <th style="padding-left: 5px;width:10%"> Edit </th>
+            <th style="padding-left: 5px;width:10%"> Upload</th>
+          </tr>
+
+          {% for house in houses %}
+          {% if house.status == 1 %}
+          <tr>
+            <td style="padding-left: 5px;"> {{ house.id }}</td>
+            <td style="padding-left: 5px;"> {{ house.date }}</td>
+            <td style="padding-left: 5px;">¥ {{ '%.2f' %(house.total_price) }}</td>
+            <td style="padding-left: 5px;"> {{ house.square }} m<sup>2</sup></td>
+            <td style="padding-left: 5px;">¥ {{ '%.2f' %(house.total_price/house.square) }}</td>
+            <td style="padding-left: 5px;"><a href="{{ url_for('details',house_id=house.id) }}"><button type="button"
+                  name="button" class="btn btn-success btn-xs">Preview</button></a></td>
+            <td style="padding-left: 5px;"><a href="{{ url_for('edit_house',house_id=house.id) }}"><button type="button"
+                  name="button" class="btn btn-success btn-xs">Edit</button></a></td>
+            <td style="padding-left: 5px;"><button class="btn btn-warning btn-xs" type="button" name="button" data-toggle="modal" data-target="#upload{{ house.id }}">Upload</button></td>
+          </tr>
+          {% if house_picture[houses_id.index(house.id)] == 0 %}
+          <div class="modal fade" id="upload{{ house.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                  </button>
+                  <h4 class="modal-title" id="myModalLabel">
+                    Go to upload your picture!{{house_picture[houses_id.index(house.id)]}}
+                  </h4>
+                </div>
+                <div class="modal-body">
+                  You should upload at least one picture of the house.
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancel
+                  </button>
+                  <a href="{{ url_for('edit_house',house_id=house.id) }}"><button type="button" class="btn btn-success btn-sm">Go To Edit
+                  </button></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% else %}
+          <div class="modal fade" id="upload{{ house.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                  </button>
+                  <h4 class="modal-title" id="myModalLabel">
+                    Are you sure to upload?
+                  </h4>
+                </div>
+                <div class="modal-body">
+                  You will upload the house with id:&nbsp;<b>{{ house.id }}</b>.
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">No
+                  </button>
+                  <a href="{{ url_for('upload_house',house_id1=house.id) }}"><button type="button" class="btn btn-success btn-sm">Yes
+                  </button></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          {% endif %}
+          {% endfor %}
+          {% elif completed == 0 %}
+          <p style="margin-top: 20px;">There is no house in the collection yet. Go and add a prediction!&nbsp;<a href="{{ url_for('predict') }}"><span
+              class="glyphicon glyphicon-stats"></span>&nbsp;Predict</a></p>
+          {% endif %}
+        {% elif completed == 0 %}
+          <p style="margin-top: 20px;">There is no house in the collection yet. Go and add a prediction!&nbsp;<a href="{{ url_for('predict') }}"><span
+              class="glyphicon glyphicon-stats"></span>&nbsp;Predict</a></p>
+        {% endif %}
+        </table>
+      </div>
+      </div>
+
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title"><b>Uploaded</b></h3>
+      </div>
+      <div class="panel-body">
+        <table width="100%" class="table table-hover">
+          {% if houses %}
+          {% if uploaded != 0 %}
+          <tr>
+            <th style="padding-left: 5px;width:10%"> House ID</th>
+            <th style="padding-left: 5px;width:15%"> Date </th>
+            <th style="padding-left: 5px;width:15%"> Price </th>
+            <th style="padding-left: 5px;width:15%"> Square </th>
+            <th style="padding-left: 5px;width:15%"> Average Price </th>
+            <th style="padding-left: 5px;width:10%"> Preview </th>
+            <th style="padding-left: 5px;width:10%"> Edit </th>
+            <th style="padding-left: 5px;width:10%"> Delete</th>
+          </tr>
+          {% for house in houses %}
+          {% if house.status == 2 %}
+          <tr>
+            <td style="padding-left: 5px;"> {{ house.id }}</td>
+            <td style="padding-left: 5px;"> {{ house.date }}</td>
+            <td style="padding-left: 5px;">¥ {{ '%.2f' %(house.total_price) }}</td>
+            <td style="padding-left: 5px;"> {{ house.square }} m<sup>2</sup></td>
+            <td style="padding-left: 5px;">¥ {{ '%.2f' %(house.total_price/house.square) }}</td>
+            <td style="padding-left: 5px;"><a href="{{ url_for('details',house_id=house.id) }}"><button
+                  class="btn btn-info btn-xs" type="button" name="button">Preview</button></a>
+            </td>
+            <td style="padding-left: 5px;"><a href="{{ url_for('edit_house',house_id=house.id) }}"><button type="button"
+                  name="button" class="btn btn-info btn-xs">Edit</button></a></td>
+            <td style="padding-left: 5px;"><button class="btn btn-danger btn-xs" type="button" name="button" data-toggle="modal" data-target="#delete{{ house.id }}">Delete</button></td>
+          </tr>
+          <div class="modal fade" id="delete{{ house.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                  </button>
+                  <h4 class="modal-title" id="myModalLabel">
+                    Are you sure to delete?
+                  </h4>
+                </div>
+                <div class="modal-body">
+                  You will delete the house with id:&nbsp;<b>{{ house.id }}</b>.
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">No
+                  </button>
+                  <a href="{{ url_for('delete_house',house_id=house.id) }}"><button type="button" class="btn btn-success btn-sm">Yes
+                  </button></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+          {% elif uploaded == 0 %}
+          <p style="margin-top: 20px;">There is no house in the collection yet. Click the <b>' <button
+            class="btn btn-warning btn-xs" disabled="disabled" >Upload</button> '</b> button in <b>'Completed'</b> to upload your house!</p>
+          {% endif %}
+          {% elif uploaded == 0 %}
+          <p style="margin-top: 20px;">There is no house in the collection yet. Click the <b>' <button
+            class="btn btn-warning btn-xs" disabled="disabled" >Upload</button> '</b> button in <b>'Completed'</b> to upload your house!</p>
+        {% endif %}
+        </table>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top: 30px;margin-left: 50px;margin-right: 50px;margin-bottom: 30px;">
+    <p style="font-size: 3.5rem;"><span class="	glyphicon glyphicon-hand-right"></span>&nbsp;&nbsp;<b>My
+        Favorite</b>&nbsp;&nbsp;<span class="glyphicon glyphicon-hand-left"></span></p>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><b>Favorite</b></h3>
+          </div>
+          <div class="panel-body">
+    {% if fav_houses %}
+    <table width="100%" class="table table-hover">
+      <tr>
+        <th style="padding-left: 5px;width:10%"> House ID </th>
+        <th style="padding-left: 5px;width:15%"> Date </th>
+        <th style="padding-left: 5px;width:15%"> Price </th>
+        <th style="padding-left: 5px;width:15%"> Square </th>
+        <th style="padding-left: 5px;width:15%"> Average Price </th>
+        <th style="padding-left: 5px;width:10%"> Preview </th>
+        <th style="padding-left: 5px;width:10%"> Seller </th>
+        <th style="padding-left: 5px;width:10%"> Remove</th>
+      </tr>
+      {% for h in fav_houses %}
+      <tr>
+        <td style="padding-left: 5px;">{{ h.id }}</td>
+        <td style="padding-left: 5px;">{{ h.date }}</td>
+        <td style="padding-left: 5px;">¥ {{ h.total_price }}</td>
+        <td style="padding-left: 5px;">{{ h.square }} m<sup>2</sup></td>
+        <td style="padding-left: 5px;">¥ {{ '%.2f' %(h.total_price/h.square) }}</td>
+        <td style="padding-left: 5px;"><a href="{{ url_for('details',house_id=h.id) }}"><button
+          class="btn btn-primary btn-xs" type="button" name="button">Preview</button></a>
+        </td>
+        <td style="padding-left: 5px;"><a href="{{ url_for('visitothers', user_id=h.user_id) }}"><button
+          class="btn btn-primary btn-xs" type="button" name="button">View</button></a>
+        </td>
+        <td><button class="btn btn-danger btn-xs" type="button"
+              name="button" data-toggle="modal" data-target="#remove{{ h.id }}">Remove</button></td>
+      </tr>
+      <div class="modal fade" id="remove{{ h.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                &times;
+              </button>
+              <h4 class="modal-title" id="myModalLabel">
+                Are you sure to remove?
+              </h4>
+            </div>
+            <div class="modal-body">
+              You will remove the house from favorite with id:&nbsp;<b>{{ h.id }}</b>.
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">No
+              </button>
+              <a href="{{ url_for('remove_favorite',house_id2=h.id, user_id2=user.id) }}"><button type="button" class="btn btn-success btn-sm">Yes
+              </button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </table>
+    {% else %}
+    <p style="margin-top: 10px;">There is no house in the collection yet. Go and have a look!&nbsp;<a href="{{ url_for('buy') }}"><span
+      class="glyphicon glyphicon-filter"></span>&nbsp;Buy</a></p>
+    {% endif %}
+  </div>
+  </div>
+  </div>
+  {% include 'footer.html' %}
+</body>
+{% endblock %}
