@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, IntegerField, RadioField, SelectField, FileField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Email
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 
 class BuyForm(FlaskForm):
@@ -96,7 +96,7 @@ class MoneyForm(FlaskForm):
 class SignupForm(FlaskForm):
     username = StringField('', validators=[DataRequired()], description="Username",
                            render_kw={"class": "form-control", "placeholder": "Username", "required": 'required'})
-    email = StringField('', validators=[DataRequired()],
+    email = StringField('', validators=[DataRequired(), Email()],
                         render_kw={"class": "form-control", "placeholder": "Email", "required": 'required'})
     password = PasswordField('', validators=[DataRequired()],
                              render_kw={"class": "form-control", "placeholder": "Password", "required": 'required'})
