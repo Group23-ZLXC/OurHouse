@@ -287,6 +287,11 @@ def details():
                     owner=owner, comments=comments, favorite=favorite, form3=form3,form4=form4, reply=reply, answers=answers,
                     stored_images=stored_images, image_names=image_names, re_houses=re_houses, pop_houses=pop_houses, authors= authors,
                     money_calculate=money_calculate, money=money, recommendations=recommendations, imgs=imgs, imgs_re=imgs_re)
+    else:
+        # return redirect(url_for('login'))
+        return render_template('details.html', title='Details', form=form, form1=form1, house=house, owner=owner, commennts=comments, authors=authors,
+            stored_recomm=stored_recomm,form3=form3,form4=form4, reply=reply, answers=answers, stored_images=stored_images, image_names=image_names
+            , re_houses=re_houses, pop_houses=pop_houses, recommendations=recommendations, imgs=imgs, imgs_re=imgs_re)
 
     return render_template('details.html', title='Details', form=form, form1=form1, house=house, owner=owner, commennts=comments, authors=authors,
         stored_recomm=stored_recomm,form3=form3,form4=form4, reply=reply, answers=answers, stored_images=stored_images, image_names=image_names
