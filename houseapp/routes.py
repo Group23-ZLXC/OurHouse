@@ -593,6 +593,7 @@ def buy():
                 db.session.add(checked_finally)
                 db.session.commit()
 
+
         checks = Check.query.all()
         check_user = []
         for c in checks:
@@ -622,7 +623,8 @@ def buy():
             paginate_total = House.query.order_by(House.total_price.desc()).filter(House.status == 2).paginate(page_total, per_page_total, error_out=False)
         houses_checked = paginate.items
         houses_total = paginate_total.items
-
+    else:
+        return redirect(url_for('login'))
 
     return render_template('buy.html',title='Buy', data=data, user=user_in_db, houses=houses, form=form, form1 = form1, checked=checked_data, checked_1=checked_data_1, paginate=paginate,paginate_total=paginate_total, houses_checked=houses_checked,houses_recent=houses_recent,imgs=imgs,check_user=check_user,houses_total=houses_total,check_owner=check_owner)
 
