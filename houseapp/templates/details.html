@@ -475,6 +475,7 @@
       </div>
     </div>
     {% if house.status==2 %}
+    {% if user %}
     <div class="panel-group" id="accordion">
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -492,6 +493,7 @@
         </div>
       </div>
     </div>
+    {% endif %}
     {% endif %}
     {% if house.status == 2 %}
     <div id="loan_calculation">
