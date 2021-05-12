@@ -207,6 +207,7 @@
       </div>
       {% endif %}
       {% elif house.status == 2 %}
+      {% if user %}
       {% if house.user_id == user.id %}
       <td style="vertical-align: middle;" align="right">
         <a href="{{ url_for('edit_house',house_id=house.id) }}"><button class="btn btn-defult" type="button"
@@ -215,6 +216,8 @@
       </td>
       {% endif %}
       {% endif %}
+      {% endif %}
+      {% if user %}
       {% if not house.user_id == user.id %}
       {% if favorite %}
       <td style="vertical-align: top;" align="right">
@@ -232,13 +235,16 @@
       {% endif %}
       {% endif %}
       {% endif %}
+      {% endif %}
     </tr>
+    {% if user %}
     <tr class="active">
       <td style="padding-left: 20px;vertical-align: middle;">Estimated monthly loan:</td>
       <td width="20%" style="vertical-align: middle;"><b>¥ {{ '%.2f' %(money_calculate[1]) }}&nbsp;&nbsp;<button
             class="btn btn-link btn-xs" onclick="calculation()"><span
               class="glyphicon glyphicon-info-sign"></span>&nbsp;More precise?</button></b></td>
     </tr>
+    {% endif %}
     <tr>
       <td style="padding-left: 20px;vertical-align: middle;">Building Type:</td>
       {% if house.building_type == 1 %}
@@ -488,6 +494,7 @@
     </div>
     {% endif %}
     {% if house.status == 2 %}
+    {% if user %}
     <div id="loan_calculation">
       <div class="panel-group" id="accordion">
         <div class="panel panel-default">
@@ -614,6 +621,7 @@
                           under the law :) <br>
                           &nbsp;&nbsp;&nbsp;&nbsp; See your loan according to the table above!
                         </td>
+                        {% endif %}
                         {% endif %}
                       </tr>
                     </table>
