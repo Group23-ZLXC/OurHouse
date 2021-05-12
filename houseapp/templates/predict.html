@@ -7,10 +7,12 @@
 </script> -->
 
 
-<div style="margin-top: 60px; margin-left: 300px;margin-right:300px;margin-bottom: 60px; background-color: rgb(255, 255, 255);opacity: 0.9;padding: 10px 0 10px 0;border-radius: 20px;box-shadow: 5px 5px 5px rgb(172, 172, 172);" align="center">
+<div style="margin-top: 60px; margin-left: 300px;margin-right:300px;margin-bottom: 60px; background-color: rgb(255, 255, 255);opacity: 0.9;padding: 10px 0 10px 0;border-radius: 20px;box-shadow: 5px 5px 5px rgb(172, 172, 172);"
+    align="center">
     <h2><span class="glyphicon glyphicon-leaf"></span>&nbsp;&nbsp;<b>Predict Your House Price</b>&nbsp;&nbsp;<span
             class="glyphicon glyphicon-leaf"></span></h2>
-    <span style="margin-left: 400px">Have some questions? ➡️<a href="{{ url_for('visualization') }}">Explaination</a>⬅️</span>
+    <span class="pull-right" style="padding-right: 50px;">Have some questions? ➡️&nbsp;<a
+            href="{{ url_for('visualization') }}">Explaination</a>&nbsp;⬅️</span>
 
 
     <form action="" method="post" novalidate>
@@ -35,59 +37,33 @@
                     </div>
                     </p>
                 </td>
-                <td colspan="2" align="center" style="padding-top: 10px;">Do not know?&nbsp;<a href="{{ url_for('map') }}"><span class="glyphicon glyphicon-globe"></span>&nbsp;Go and see it!</a></td>
+                <td colspan="2" align="center" style="padding-top: 10px;">Do not know?&nbsp;<a
+                        href="{{ url_for('map') }}"><span class="glyphicon glyphicon-globe"></span>&nbsp;Go and see
+                        it!</a></td>
             </tr>
             <tr>
                 <td colspan="2" align="center">
                     <p>
-                        <div class="input-group" style="width: 90%; margin-top: 20px;">
-                            <span class="input-group-addon">*Square</span>
-                            {{ form.square(class_="form-control", placeholder="square") }}
-                            <span class="input-group-addon">m<sup>2</sup></span>
-                        </div>
-                        {% for error in form.square.errors %}
-                        <span style="color: red;">[{{ error }}]</span>
-                        {% endfor %}
+                    <div class="input-group" style="width: 90%; margin-top: 20px;">
+                        <span class="input-group-addon">*Square</span>
+                        {{ form.square(class_="form-control", placeholder="square") }}
+                        <span class="input-group-addon">m<sup>2</sup></span>
+                    </div>
+                    {% for error in form.square.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
                     </p>
                 </td>
                 <td colspan="2" align="center">
                     <p>
-                        <div class="input-group" style="width: 90%; margin-top: 20px;">
-                            <span class="input-group-addon">*Floor</span>
-                            {{ form.floor(class_="form-control") }}
-                        </div>
+                    <div class="input-group" style="width: 90%; margin-top: 20px;">
+                        <span class="input-group-addon">*Floor</span>
+                        {{ form.floor(class_="form-control") }}
+                    </div>
 
-                        {% for error in form.floor.errors %}
-                        <span style="color: red;">[{{ error }}]</span>
-                        {% endfor %}
-
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center">
-                    <p>
-                        <div class="input-group" style="width: 90%; margin-top: 20px;">
-                            <span class="input-group-addon">*Bedroom</span>
-                            {{ form.living_room(class_="form-control") }}
-                        </div>
-
-                        {% for error in form.living_room.errors %}
-                        <span style="color: red;">[{{ error }}]</span>
-                        {% endfor %}
-
-                    </p>
-                </td>
-                <td colspan="2" align="center">
-                    <p>
-                        <div class="input-group" style="width: 90%; margin-top: 20px;">
-                            <span class="input-group-addon">*Drawing Room</span>
-                            {{ form.drawing_room(class_="form-control") }}
-                        </div>
-
-                        {% for error in form.drawing_room.errors %}
-                        <span style="color: red;">[{{ error }}]</span>
-                        {% endfor %}
+                    {% for error in form.floor.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
 
                     </p>
                 </td>
@@ -95,27 +71,55 @@
             <tr>
                 <td colspan="2" align="center">
                     <p>
-                        <div class="input-group" style="width: 90%; margin-top: 20px;">
-                            <span class="input-group-addon">*Kitchen</span>
-                            {{ form.kitchen(class_="form-control") }}
-                        </div>
+                    <div class="input-group" style="width: 90%; margin-top: 20px;">
+                        <span class="input-group-addon">*Bedroom</span>
+                        {{ form.living_room(class_="form-control") }}
+                    </div>
 
-                        {% for error in form.kitchen.errors %}
-                        <span style="color: red;">[{{ error }}]</span>
-                        {% endfor %}
+                    {% for error in form.living_room.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
 
                     </p>
                 </td>
                 <td colspan="2" align="center">
                     <p>
-                        <div class="input-group" style="width: 90%; margin-top: 20px;">
-                            <span class="input-group-addon">*Bathroom</span>
-                            {{ form.bathroom(class_="form-control") }}
-                        </div>
+                    <div class="input-group" style="width: 90%; margin-top: 20px;">
+                        <span class="input-group-addon">*Drawing Room</span>
+                        {{ form.drawing_room(class_="form-control") }}
+                    </div>
 
-                        {% for error in form.bathroom.errors %}
-                        <span style="color: red;">[{{ error }}]</span>
-                        {% endfor %}
+                    {% for error in form.drawing_room.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <p>
+                    <div class="input-group" style="width: 90%; margin-top: 20px;">
+                        <span class="input-group-addon">*Kitchen</span>
+                        {{ form.kitchen(class_="form-control") }}
+                    </div>
+
+                    {% for error in form.kitchen.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+
+                    </p>
+                </td>
+                <td colspan="2" align="center">
+                    <p>
+                    <div class="input-group" style="width: 90%; margin-top: 20px;">
+                        <span class="input-group-addon">*Bathroom</span>
+                        {{ form.bathroom(class_="form-control") }}
+                    </div>
+
+                    {% for error in form.bathroom.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
 
                     </p>
                 </td>
@@ -126,14 +130,16 @@
                     <div class="input-group" style="width: 90%; margin-top: 20px;">
                         <span class="input-group-addon">Building Type</span>
                         {{ form.building_type(class_="form-control") }}
-                    </div></p>
+                    </div>
+                    </p>
                 </td>
                 <td colspan="2" align="center">
                     <p>
                     <div class="input-group" style="width: 90%; margin-top: 20px;">
                         <span class="input-group-addon">Renovation Condition</span>
                         {{ form.renovation_con(class_="form-control") }}
-                    </div></p>
+                    </div>
+                    </p>
                 </td>
             </tr>
             <tr>
@@ -142,27 +148,29 @@
                     <div class="input-group" style="width: 90%; margin-top: 20px;">
                         <span class="input-group-addon">*Elevator</span>
                         {{ form.elevator(class_="form-control") }}
-                    </div></p>
+                    </div>
+                    </p>
                 </td>
                 <td colspan="2" align="center">
                     <p>
                     <div class="input-group" style="width: 90%; margin-top: 20px;">
                         <span class="input-group-addon">*Subway</span>
                         {{ form.subway(class_="form-control") }}
-                    </div></p>
+                    </div>
+                    </p>
                 </td>
             </tr>
             <tr>
                 <td colspan="4" align="center">
                     <p>
-                        <div class="input-group" style="width: 95%; margin-top: 20px;">
-                            <span class="input-group-addon">*District</span>
-                            {{ form.district(class_="form-control") }}
-                        </div>
+                    <div class="input-group" style="width: 95%; margin-top: 20px;">
+                        <span class="input-group-addon">*District</span>
+                        {{ form.district(class_="form-control") }}
+                    </div>
 
-                        {% for error in form.district.errors %}
-                        <span style="color: red;">[{{ error }}]</span>
-                        {% endfor %}
+                    {% for error in form.district.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
 
                     </p>
                 </td>
@@ -175,15 +183,19 @@
             <p>{{ form.submit(class="btn btn-defult btn-block", width="100%") }}</p>
         </div>
         {% else %}
-        <p style="color: red;margin-top: 20px; "><b>You have to log in to predict</b></p>
-        <table width="60%">
+        <p style="color: red;margin-top: 20px;font-size: 20px; "><b>You have to log in to predict.</b></p>
+        <table width="80%">
             <tr>
-                <td align="left"><p><span>Already have an account?</span>
-                    <a href="{{ url_for('login') }}"><span class="glyphicon glyphicon-user"></span> Log in</a>
-                </p></td>
-                <td align="right"><p><span>Create an account? </span>
-                    <a href="{{ url_for('signup') }}"><span class="glyphicon glyphicon-user"></span> Register</a>
-                </p></td>
+                <td align="left">
+                    <p><span>Already have an account?</span>
+                        <a href="{{ url_for('login') }}"><span class="glyphicon glyphicon-user"></span> Log in</a>
+                    </p>
+                </td>
+                <td align="right">
+                    <p><span>Create an account? </span>
+                        <a href="{{ url_for('signup') }}"><span class="glyphicon glyphicon-user"></span> Register</a>
+                    </p>
+                </td>
             </tr>
 
         </table>
@@ -191,25 +203,39 @@
     </form>
 </div>
 <hr>
-<div id="distribution" style="margin-left: 100px;margin-right:100px;;opacity: 0.9;padding: 10px 0 10px 0;border-radius: 20px;box-shadow: 5px 5px 5px rgb(172, 172, 172);">
-<h3 align="center">The Distribution of Total Housing Prices in the Dataset</h3>
-<br><br>
-<table>
-    <tr>
-      <td><a href="#" data-toggle="tooltip" data-placement="bottom" title="Table"><img src="../static/img/distribution_table.png" alt="features" width="80%" height="300px"/></a></td>
+<div id="distribution"
+    style="margin:20px 100px 30px 100px;opacity: 0.9;padding: 10px 0 10px 0;border-radius: 20px;box-shadow: 5px 5px 5px rgb(172, 172, 172);">
+    <h3 align="center"><b>The Distribution of Total Housing Prices in the Dataset</b></h3>
+    <br>
+    <table style="width: 96%;margin: 10px 20px 10px 20px;">
+        <tr>
+            <td><a href="#" data-toggle="tooltip" data-placement="bottom" title="Table"><img
+                        src="../static/img/distribution_table.png" alt="features" width="100%" height="350px" /></a>
+            </td>
 
-        <td>
-          <p>The following is the data distribution of the total house price in the data set selected for our forecasting model.<p>
-          <p>As you can see from the chart, most of the data is concentrated <b>below ¥6.500,000</b><br>
-            Therefore, the prediction for this range is the most accurate.</p>
-          <p>For homes with a total price <b>greater than ¥12,100,000</b>, the forecast price is for reference only.</p>
-        </td>
-    </tr>
-    <tr>
-      <td><a href="#" data-toggle="tooltip" data-placement="bottom" title="Bar Chart"><img src="../static/img/distribution_bar.png" alt="features" width="100%" height="300px"/></a></td>
-      <td><a href="#" data-toggle="tooltip" data-placement="bottom" title="Pie Chart"><img src="../static/img/distribution_pie.png" alt="features" width="100%" height="400px"/></a></td>
-    </tr>
-</table>
+            <td>
+                <div style="margin-left: 10px;">
+                    <p><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;The following
+                        is the data distribution of the total house price in the data set selected for our forecasting
+                        model.
+                    <p>
+                        <br>
+                    <p><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;As you can see
+                        from the chart, most of the data is concentrated <b>below ¥6.500,000</b><br>
+                        Therefore, the prediction for this range is the most accurate.</p>
+                    <br>
+                    <p><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;For homes with
+                        a total price <b>greater than ¥12,100,000</b>, the forecast price is for reference only.</p>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><a href="#" data-toggle="tooltip" data-placement="bottom" title="Bar Chart"><img
+                        src="../static/img/distribution_bar.png" alt="features" width="100%" height="350px" /></a></td>
+            <td><a href="#" data-toggle="tooltip" data-placement="bottom" title="Pie Chart"><img
+                        src="../static/img/distribution_pie.png" alt="features" width="100%" height="350px" /></a></td>
+        </tr>
+    </table>
 </div>
 
 <style>
@@ -218,10 +244,10 @@
         background-image: url("../static/img/predict.png");
         background-size: 100% 100%;
     }
-    #distribution{
-      background-color: white;
-    }
 
+    #distribution {
+        background-color: white;
+    }
 </style>
 
 {% include 'footer.html' %}
