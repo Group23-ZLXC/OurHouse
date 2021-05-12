@@ -1,4 +1,3 @@
-
 <head>
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -6,76 +5,793 @@
 </head>
 
 <body>
-    <div style="margin: 60px 20px 30px 20px;">
-        <p class="text-center" style="font-size: 15px;"><b>The goal of SHAP is to explain the judgment result of the model by calculating the contribution of each feature in the train set to Prediction through SHAP VALUE.</b></p>
-        <hr style="background-color: #cccccc; height: 1px;">
-      <table style="width: 100%;">
-          <tr>
-            <td style="width: 50%;padding-right: 15px;"><img src="../static/img/ml/SHAP.jpg" alt="features" width="100%" height="100px"/></td>
-            <td style="width: 50%;padding-left: 15px;color: #4d4d4d;font-style: italic;"><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;This figure shows the different influences of different features on the predicted results of the model.
-                <br><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;Red indicates a positive contribution of a given feature to the prediction, and blue indicates a negative contribution.
-                <br><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;Base value is the base price. The longer the price deviates from the Base value, the greater the influence of this feature on the predicted price.
-                <br><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;In this example, the feature square has the greatest positive effect on the predicted price, while longitude (Lng) has the greatest negative effect on the predicted price.</td>
-          </tr>
-      </table>
-      <hr style="background-color: #cccccc; height: 1px;">
-      <table style="width: 100%;">
+    <table>
         <tr>
-            <td style="width: 50%;padding-right: 15px;color: #4d4d4d;font-style: italic;"><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;This chart shows the influence of each feature on the predicted result (target) through the average of SHAP VALUE.
-                <br><br><br><br><br><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;From this figure, we can see that among the features selected, the square of the house has the greatest influence on predicting the housing price, while the number of kitchens and Drawing rooms has very little influence on predicting the housing price.</td>
-            <td style="width: 50%;padding-left: 15px;"><img src="../static/img/ml/force_plot.jpg" alt="features" width="100%" height="350px"/></td>
+            <th style="padding:20px 0 0 10px;"><a href="{{ url_for('predict') }}" style="color: rgb(255, 255, 255);"><span class="glyphicon glyphicon-stats"></span>&nbsp;&nbsp;Back to Predict</a>
+            </th>
         </tr>
-      </table>
-      <hr style="background-color: #cccccc; height: 1px;">
-      <table style="width: 100%;">
+    </table>
+    <table style="width: 100%;">
         <tr>
-          <td style="width: 50%;padding-right: 15px;"><img src="../static/img/ml/summary_plot_bar.jpg" alt="features" width="100%" height="350px"/></td>
-          <td style="width: 50%;padding-left: 15px;color: #4d4d4d;font-style: italic;"><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;This graph shows the effect of the value of each feature on the predicted result.
-            <br><br><br><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;The blue points in the figure indicate that the value of the eigenvalue is small, while the red points indicate that the point of the eigenvalue is large.
-            <br><br><br><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;We find that for the feature of square, the red dots are mainly distributed in areas with SHAP value greater than 0, while the blue dots are mainly distributed in areas with SHAP value less than 0. This indicates that the larger the housing area is, the greater the positive impact on the predicted price, while the smaller the area is, the greater the negative impact on the predicted price.
-            <br><br><br><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;As for the Floor feature, the blue points are mainly distributed in the area where the SHAP value is greater than 0. This means that in our model, the smaller the Floor of a house, the greater the positive impact on the house price.</td>
-        </tr>
-      </table>
-      <hr style="background-color: #cccccc; height: 1px;">
-      <table style="width: 100%;">
-       <tr>
-        <td style="width: 50%;padding-right: 15px;color: #4d4d4d;font-style: italic;"><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;This figure shows the influence of the interaction between different features on the predicted results.
-            <br><br><br><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;In the case of multiple features interacting, red dots represent large eigenvalues and blue dots represent small eigenvalues.
-            <br><br><br><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;The positive and negative distribution of SHAP value respectively represents the positive and negative influences on the predicted results.</td>
-        <td style="width: 50%;padding-left: 15px;"><img src="../static/img/ml/summary_plot_point.jpg" alt="features" width="100%" height="350px"/></td>
-       </tr>
-      </table>
-      <hr style="background-color: #cccccc; height: 1px;">
-      <table style="width: 100%;">
-          <tr>
-              <td style="width: 50%;padding-right: 15px;">
-                <table>
-                    <tr>
-                        <td><a href="#" data-toggle="tooltip" data-placement="bottom" title="Bedroom"><img src="../static/img/ml/plot1.jpg" alt="features" width="100%" height="150px"/></a></td>
-                        <td><a href="#" data-toggle="tooltip" data-placement="bottom" title="Drawing Room"><img src="../static/img/ml/plot2.jpg" alt="features" width="100%" height="150px"/></a></td>
-                        <td><a href="#" data-toggle="tooltip" data-placement="bottom" title="Kitchen"><img src="../static/img/ml/plot3.jpg" alt="features" width="100%" height="150px"/></a></td>
-                    </tr>
-                    <tr>
-                        <td><a href="#" data-toggle="tooltip" data-placement="bottom" title="Bathroom"><img src="../static/img/ml/plot4.jpg" alt="features" width="100%" height="150px"/></a></td>
-                        <td><a href="#" data-toggle="tooltip" data-placement="bottom" title="Subway"><img src="../static/img/ml/plot5.jpg" alt="features" width="100%" height="150px"/></a></td>
-                        <td><a href="#" data-toggle="tooltip" data-placement="bottom" title="District"><img src="../static/img/ml/plot6.jpg" alt="features" width="100%" height="150px"/></a></td>
-                    </tr>
-                    <tr>
-                        <td><a href="#" data-toggle="tooltip" data-placement="bottom" title="Lat"><img src="../static/img/ml/plot7.jpg" alt="features" width="100%" height="150px"/></a></td>
-                        <td><a href="#" data-toggle="tooltip" data-placement="bottom" title="Lng"><img src="../static/img/ml/plot8.jpg" alt="features" width="100%" height="150px"/></a></td>
-                        <td><a href="#" data-toggle="tooltip" data-placement="bottom" title="Square"><img src="../static/img/ml/plot9.jpg" alt="features" width="100%" height="150px"/></a></td>
-                    </tr>
-                </table>
-              </td>
-              <td style="width: 50%;padding-left: 15px;color: #4d4d4d;font-style: italic;"><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;These images show the SHAP values of each feature in different value intervals.
-                <br><br><br><br><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;Data in the positive range of SHAP value will have a positive impact on the predicted result, while data in the negative range of SHAP value will have a negative impact on the predicted value.
-                <br><br><br><br><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;From these figures, we can see the influence of each feature on the predicted results in different data intervals.
-                <br><br><br><br><p style="font-size: 7px;color: gray;">* Move the mouse over the picture to see the name of each feature.</p>
+            <td>
+                <div class="page">
+                    <div class="page__demo">
+                        <div class="main-container page__container">
+                            <article class="card">
+                                <header class="card__header">
+                                    <img class="card__preview" src="../static/img/ml/ml.png"
+                                        style="width: 100%;height: 300px;border-radius: 20px;">
+                                    <h3 class="card__title"><p class="card__link">SHAP</p></h3>
+                                </header>
+                                <div class="card__body">
+                                    <div class="card__content">
+                                        <span class="glyphicon glyphicon-tags"
+                                            style="color: #fdc151;"></span>&nbsp;&nbsp;This figure shows the different
+                                        influences of different features on the predicted results of the model.
+                                    </div>
+                                    <hr>
+                                    <a href="#id1" class="card__link card__readmore">More details</a>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
             </td>
-          </tr>
-      </table>
+            <td>
+                <div class="page">
+                    <div class="page__demo">
+                        <div class="main-container page__container">
+                            <article class="card">
+                                <header class="card__header">
+                                    <img class="card__preview" src="../static/img/ml/force_plot.png"
+                                        style="width: 100%;height: 300px;border-radius: 20px;">
+                                    <h3 class="card__title"><p class="card__link">Force Plot</p></h3>
+                                </header>
+                                <div class="card__body">
+                                    <div class="card__content">
+                                        <span class="glyphicon glyphicon-tags"
+                                            style="color: #fdc151;"></span>&nbsp;&nbsp;This figure shows the different
+                                        influences of different features on the predicted results of the model.
+                                    </div>
+                                    <hr>
+                                    <a href="#id2" class="card__link card__readmore">More Details</a>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="page">
+                    <div class="page__demo">
+                        <div class="main-container page__container">
+                            <article class="card">
+                                <header class="card__header">
+                                    <img class="card__preview" src="../static/img/ml/summary_plot_bar.jpg"
+                                        style="width: 100%;height: 300px;border-radius: 20px;">
+                                    <!--这里下载图片：https://placeimg.com/640/400/nature-->
+                                    <h3 class="card__title"><p class="card__link">Summary Plot Bar</p>
+                                    </h3>
+                                </header>
+                                <div class="card__body">
+                                    <div class="card__content">
+                                        <span class="glyphicon glyphicon-tags"
+                                            style="color: #fdc151;"></span>&nbsp;&nbsp;This chart shows the
+                                        influence of each feature on the predicted result (target) through the average
+                                        of SHAP VALUE.
+                                    </div>
+                                    <hr>
+                                    <a href="#id3" class="card__link card__readmore">More Details</a>
+                                    <!-- <footer class="card__footer">
+                              <a href="#popup-article" class="card__link card__readmore">更多内容</a>
+                            </footer> -->
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <div class="page">
+                    <div class="page__demo">
+                        <div class="main-container page__container">
+                            <article class="card">
+                                <header class="card__header">
+                                    <img class="card__preview" src="../static/img/ml/summary_plot_point.jpg"
+                                        style="width: 100%;height: 300px;border-radius: 20px;">
+                                    <!--这里下载图片：https://placeimg.com/640/400/nature-->
+                                    <h3 class="card__title"><p class="card__link">Summary Plot Point</p>
+                                    </h3>
+                                </header>
+                                <div class="card__body">
+                                    <div class="card__content">
+                                        <span class="glyphicon glyphicon-tags"
+                                            style="color: #fdc151;"></span>&nbsp;&nbsp;This graph shows the
+                                        effect of the value of each feature on the predicted result.
+                                    </div>
+                                    <br>
+                                    <hr>
+                                    <a href="#id4" class="card__link card__readmore">More Details</a>
+                                    <!-- <footer class="card__footer">
+                              <a href="#popup-article" class="card__link card__readmore">更多内容</a>
+                            </footer> -->
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="page">
+                    <div class="page__demo">
+                        <div class="main-container page__container">
+                            <article class="card">
+                                <header class="card__header">
+                                    <img class="card__preview" src="../static/img/ml/interaction_plot.jpg"
+                                        style="width: 100%;height: 300px;border-radius: 20px;">
+                                    <!--这里下载图片：https://placeimg.com/640/400/nature-->
+                                    <h3 class="card__title"><p class="card__link">Interaction Bar</p>
+                                    </h3>
+                                </header>
+                                <div class="card__body">
+                                    <div class="card__content">
+                                        <span class="glyphicon glyphicon-tags"
+                                            style="color: #fdc151;"></span>&nbsp;&nbsp;This figure shows
+                                        the influence of the interaction between different features on the predicted
+                                        results.
+                                    </div>
+                                    <hr>
+                                    <a href="#id5" class="card__link card__readmore">More Details</a>
+                                    <!-- <footer class="card__footer">
+                              <a href="#popup-article" class="card__link card__readmore">更多内容</a>
+                            </footer> -->
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="page">
+                    <div class="page__demo">
+                        <div class="main-container page__container">
+                            <article class="card">
+                                <header class="card__header">
+                                    <img class="card__preview" src="../static/img/ml/plot9.jpg"
+                                        style="width: 100%;height: 300px;border-radius: 20px;">
+                                    <!--这里下载图片：https://placeimg.com/640/400/nature-->
+                                    <h3 class="card__title"><p class="card__link">Values Of Features</p>
+                                    </h3>
+                                </header>
+                                <div class="card__body">
+                                    <div class="card__content">
+                                        <span class="glyphicon glyphicon-tags"
+                                            style="color: #fdc151;"></span>&nbsp;&nbsp;These images show
+                                        the SHAP values of each feature in different value intervals.
+                                    </div>
+                                    <br><hr>
+                                    <a href="#id6" class="card__link card__readmore">More Details</a>
+                                    <!-- <footer class="card__footer">
+                              <a href="#popup-article" class="card__link card__readmore">更多内容</a>
+                            </footer> -->
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+
+    </table>
+
+
+    <div id="popup-article" class="popup">
+        <div class="popup__block">
+            <h1 class="popup__title">SHAP</h1>
+            <p>这个秘密可以让你得到你想要的一切，包括快乐健康财富。</p>
+            <img src="../static/img/ml/SHAP.jpg" class="popup__media popup__media_right" alt="The foto of nature">
+            <p>你能拥有一切，达到你的目标，变成你想成为的人。</p>
+            <p>我们可以拥有一切我们想拥有的东西，无论什么都能得到。</p>
+            <p>你想住在什么样的房子里？你想当个百万富翁吗？你想拥有什么样的事业呢？你希望自己更成功吗？你究竟想要什么？</p>
+            <p>我看到奇迹发生在许多人的生命里，比如财富上，绝症康复，精神康复，以及两性关系转变的奇迹。</p>
+            <p>奇迹之所以出现，是因为他们知道怎么运用我们即将公布的秘密。这是生命中伟大的秘密。</p>
+            <p>我们都具有无穷的力量，我们都被同样的定律引导着，宇宙的自然定律真的是精确无比，因此我们建造宇宙飞船没有任何问题，还可以送人上月球，甚至可以预估登陆时间，精确度在1/10秒之内，不管你是在印度还是在澳洲，纽西兰，斯德哥尔摩，伦敦，多伦多，蒙特娄还是纽约，我们都依循着一种力量，一种定律，就是吸引力。这个秘密就是吸引力定律。
+            </p>
+            <p>你生命里发生的一切，都是由你吸引而来的，你在心里构想的画面，会在现实生活中发生，也就是说，你心里想的一切，都会被吸引到现实生活中来。现代聪明的人一直都知道这个定律。古巴比伦时代的人，也早就知道这个定律，这得天独厚的一小群人，你想想为什么1%的人可以赚取全世界96%的财富呢？你认为这是偶然的意外吗？绝对不是，这是人为造成的。因为他们了解一件事，他们知道这个秘密。你现在也即将认识这个秘密。
+            </p>
+            <a href="" class="popup__close">Close</a>
+        </div>
+    </div>
+
+    <div id="id2" class="popup">
+        <div class="popup__block">
+            <h1 class="popup__title">Force Plot</h1>
+            <img src="../static/img/ml/SHAP.jpg" alt="features" width="100%" height="100px" />
+            <br>
+            <span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;This figure shows the
+            different influences of different features on the predicted results of the model.
+            <br><br><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;Red indicates a
+            positive contribution of a given feature to the prediction, and blue indicates a negative contribution.
+            <br><br><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;Base value is the
+            base price. The longer the price deviates from the Base value, the greater the influence of this feature
+            on the predicted price.
+            <br><br><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;In this example,
+            the feature square has the greatest positive effect on the predicted price, while longitude (Lng) has
+            the greatest negative effect on the predicted price.
+            <a href="" class="popup__close">Close</a>
+        </div>
+    </div>
+
+    <div id="id3" class="popup">
+        <div class="popup__block">
+            <h1 class="popup__title">Summary Plot Bar</h1>
+            <br><br>
+            <img src="../static/img/ml/summary_plot_bar.jpg" class="popup__media popup__media_right">
+            <span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;This chart shows the
+            influence of each feature on the predicted result (target) through the average of SHAP VALUE.
+            <br><br><br><br><br><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;From
+            this figure, we can see that among the features
+            selected, the square of the house has the greatest influence on predicting the housing price, while
+            the number of kitchens and Drawing rooms has very little influence on predicting the housing price.
+            <a href="" class="popup__close">Close</a>
+        </div>
+    </div>
+
+    <div id="id4" class="popup">
+        <div class="popup__block">
+            <h1 class="popup__title">Summary Plot Point</h1>
+            <img src="../static/img/ml/summary_plot_point.jpg" style="height: 500px;width: 100%;" />
+            <br><br>
+            <span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;This graph shows the
+            effect of the value of each feature on the predicted result.
+            <br><br><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;The
+            blue points in the figure indicate that the value of the eigenvalue is small, while the red points
+            indicate that the point of the eigenvalue is large.
+            <br><br><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;We
+            find that for the feature of square, the red dots are mainly distributed in areas with SHAP value
+            greater than 0, while the blue dots are mainly distributed in areas with SHAP value less than 0.
+            This indicates that the larger the housing area is, the greater the positive impact on the predicted
+            price, while the smaller the area is, the greater the negative impact on the predicted price.
+            <br><br><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;As for
+            the Floor feature, the blue points are mainly distributed in the area where the SHAP value is
+            greater than 0. This means that in our model, the smaller the Floor of a house, the greater the
+            positive impact on the house price.
+            <a href="" class="popup__close">Close</a>
+        </div>
+    </div>
+
+    <div id="id5" class="popup">
+        <div class="popup__block">
+            <h1 class="popup__title">Interaction Plot</h1>
+            <img src="../static/img/ml/interaction_plot.jpg" style="height: 500px;width: 100%;">
+            <br><br>
+            <span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;This figure shows
+            the influence of the interaction between different features on the predicted results.
+            <br><br><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;In the
+            case of multiple features interacting, red dots represent large eigenvalues and blue dots represent
+            small eigenvalues.
+            <br><br><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;The
+            positive and negative distribution of SHAP value respectively represents the positive and negative
+            influences on the predicted results.
+            <a href="" class="popup__close">Close</a>
+        </div>
+    </div>
+
+    <div id="id6" class="popup">
+        <div class="popup__block">
+            <h1 class="popup__title">Values Of Features</h1>
+            <table>
+                <tr>
+                    <td><a href="#" data-toggle="tooltip" data-placement="bottom" title="Bedroom"><img
+                                src="../static/img/ml/plot1.jpg" alt="features" width="100%"
+                                height="170px" /></a></td>
+                    <td><a href="#" data-toggle="tooltip" data-placement="bottom" title="Drawing Room"><img
+                                src="../static/img/ml/plot2.jpg" alt="features" width="100%"
+                                height="170px" /></a></td>
+                    <td><a href="#" data-toggle="tooltip" data-placement="bottom" title="Kitchen"><img
+                                src="../static/img/ml/plot3.jpg" alt="features" width="100%"
+                                height="170px" /></a></td>
+                </tr>
+                <tr>
+                    <td><a href="#" data-toggle="tooltip" data-placement="bottom" title="Bathroom"><img
+                                src="../static/img/ml/plot4.jpg" alt="features" width="100%"
+                                height="170px" /></a></td>
+                    <td><a href="#" data-toggle="tooltip" data-placement="bottom" title="Subway"><img
+                                src="../static/img/ml/plot5.jpg" alt="features" width="100%"
+                                height="170px" /></a></td>
+                    <td><a href="#" data-toggle="tooltip" data-placement="bottom" title="District"><img
+                                src="../static/img/ml/plot6.jpg" alt="features" width="100%"
+                                height="170px" /></a></td>
+                </tr>
+                <tr>
+                    <td><a href="#" data-toggle="tooltip" data-placement="bottom" title="Lat"><img
+                                src="../static/img/ml/plot7.jpg" alt="features" width="100%"
+                                height="170px" /></a></td>
+                    <td><a href="#" data-toggle="tooltip" data-placement="bottom" title="Lng"><img
+                                src="../static/img/ml/plot8.jpg" alt="features" width="100%"
+                                height="170px" /></a></td>
+                    <td><a href="#" data-toggle="tooltip" data-placement="bottom" title="Square"><img
+                                src="../static/img/ml/plot9.jpg" alt="features" width="100%"
+                                height="170px" /></a></td>
+                </tr>
+            </table>
+            <br><br>
+            <span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;These images show
+            the SHAP values of each feature in different value intervals.
+            <br><br><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;Data in
+            the positive range of SHAP value will have a
+            positive impact on the predicted result, while data in the negative range of SHAP value will have a
+            negative impact on the predicted value.
+            <br><br><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;From these
+            figures, we can see the influence of each
+            feature on the predicted results in different data intervals.
+            <br><br>
+            <p style="font-size: 10px;color: gray;">* Move the mouse over the picture to see the name of each
+                feature.</p>
+            <a href="" class="popup__close">Close</a>
+        </div>
     </div>
 
 </body>
+<footer>
+    <div>
+        <table width="100%">
+            <tr>
+                <td style="color: rgb(255, 255, 255);font-size: 13px;"><span
+                        class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;<b>Our
+                        House</b>&nbsp;&nbsp;|&nbsp;&nbsp;<b>&copy;</b>&nbsp;ZLXC Group 23</span>&nbsp;&nbsp;</td>
+                <td style="color: rgb(255, 255, 255);font-size: 13px;" align="right">&nbsp;&nbsp;<b>Contact
+                        Us</b>&nbsp;&nbsp;<span
+                        class="glyphicon glyphicon-phone-alt"></span>&nbsp;&nbsp;1234-123-123</td>
+            </tr>
+        </table>
+</footer>
+<style>
+    /*
+ * card
+*/
 
-{% include 'footer.html' %}
+    .card {
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+        max-width: 450px;
+        background-color: #fff;
+        border-radius: 20px;
+        margin:0
+    }
+
+    .card__header {
+        position: relative;
+        border-radius: 20px;
+    }
+
+    .card__header:before {
+        content: "";
+        width: 100%;
+        height: 70%;
+        background-image: -webkit-linear-gradient(top, transparent 40%, rgba(0, 0, 0, .4) 80%, rgba(0, 0, 0, .6));
+        background-image: linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, .4) 80%, rgba(0, 0, 0, .6));
+
+        position: absolute;
+        left: 0;
+        bottom: 0;
+    }
+
+    .card__title {
+        font-size: 2.2rem;
+        font-weight: 400;
+        color: #fff;
+        text-transform: uppercase;
+        line-height: 1.5;
+
+        padding-left: 2rem;
+        padding-right: 2rem;
+        margin-top: 0;
+        margin-bottom: 0;
+
+        position: absolute;
+        bottom: 2rem;
+        left: 0;
+    }
+
+    .card__link {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .card__preview {
+        max-width: 100%;
+        display: block;
+    }
+
+    .card__body {
+        padding: 3rem 2.5rem 2rem;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -ms-flex-pack: distribute;
+        justify-content: space-around;
+        -webkit-box-flex: 2;
+        -ms-flex-positive: 2;
+        flex-grow: 2;
+    }
+
+    .card__content {
+        -webkit-box-flex: 2;
+        -ms-flex-positive: 2;
+        flex-grow: 2;
+    }
+
+    .card__footer {
+        font-size: 1.4rem;
+        border-top: 1px solid #f0f0f0;
+        margin-top: 1rem;
+        padding-top: 1rem;
+
+        display: -webkit-box;
+
+        display: -ms-flexbox;
+
+        display: flex;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        -webkit-box-align: end;
+        -ms-flex-align: end;
+        align-items: flex-end;
+    }
+
+    .card__readmore {
+        text-transform: uppercase;
+        color: #512da8;
+    }
+
+
+    /* popup */
+
+    .popup {
+        width: 100%;
+        height: 100vh;
+        display: none;
+
+        position: fixed;
+        top: 0;
+        right: 0;
+    }
+
+    #id1:target {
+        display: block;
+    }
+
+    #id2:target {
+        display: block;
+    }
+
+    #id3:target {
+        display: block;
+    }
+
+    #id4:target {
+        display: block;
+    }
+
+    #id5:target {
+        display: block;
+    }
+
+    #id6:target {
+        display: block;
+    }
+
+    .popup__block {
+        height: calc(100vh - 40px);
+        padding: 5% 15%;
+        box-sizing: border-box;
+
+        margin-top: 20px;
+        overflow: auto;
+        -webkit-animation: fade .5s ease-out 1.3s both;
+        animation: fade .5s ease-out 1.3s both;
+    }
+
+    .popup:before {
+        content: "";
+        box-sizing: border-box;
+        width: 100%;
+
+        box-shadow: inset 0 0 0 20px #f0f0f0;
+        background: #fff;
+
+        position: fixed;
+        top: 50%;
+        will-change: height, top;
+        -webkit-animation: open-animation .6s cubic-bezier(0.83, 0.04, 0, 1.16) .65s both;
+        animation: open-animation .6s cubic-bezier(0.83, 0.04, 0, 1.16) .65s both;
+    }
+
+    .popup:after {
+        content: "";
+        width: 0;
+        height: 2px;
+        background-color: #f0f0f0;
+
+        will-change: width, opacity;
+        -webkit-animation: line-animation .6s cubic-bezier(0.83, 0.04, 0, 1.16) both;
+        animation: line-animation .6s cubic-bezier(0.83, 0.04, 0, 1.16) both;
+
+        position: absolute;
+        top: 50%;
+        left: 0;
+        margin-top: -1px;
+    }
+
+    @-webkit-keyframes line-animation {
+
+        0% {
+            width: 0;
+            opacity: 1;
+        }
+
+        99% {
+            width: 100%;
+            opacity: 1;
+        }
+
+        100% {
+            width: 100%;
+            opacity: 0;
+        }
+    }
+
+    @keyframes line-animation {
+
+        0% {
+            width: 0;
+            opacity: 1;
+        }
+
+        99% {
+            width: 100%;
+            opacity: 1;
+        }
+
+        100% {
+            width: 100%;
+            opacity: 0;
+        }
+    }
+
+    @-webkit-keyframes open-animation {
+
+        0% {
+            height: 0;
+            top: 50%;
+        }
+
+        100% {
+            height: 100vh;
+            top: 0;
+        }
+    }
+
+    @keyframes open-animation {
+
+        0% {
+            height: 0;
+            top: 50%;
+        }
+
+        100% {
+            height: 100vh;
+            top: 0;
+        }
+    }
+
+    @-webkit-keyframes fade {
+
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @keyframes fade {
+
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .popup__title {
+        margin: 0 0 1em;
+    }
+
+    .popup__close {
+        width: 3.2rem;
+        height: 3.2rem;
+        text-indent: -9999px;
+        position: absolute;
+
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+        background-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4gICAgPHBhdGggZD0iTTE5IDYuNDFMMTcuNTkgNSAxMiAxMC41OSA2LjQxIDUgNSA2LjQxIDEwLjU5IDEyIDUgMTcuNTkgNi40MSAxOSAxMiAxMy40MSAxNy41OSAxOSAxOSAxNy41OSAxMy40MSAxMnoiLz4gICAgPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPjwvc3ZnPg==);
+    }
+
+    .popup__media {
+        margin-bottom: 2rem;
+    }
+
+    @media screen and (min-width: 641px) {
+
+        .popup__title {
+            font-size: 3.8rem;
+        }
+
+        .popup__close {
+            top: 40px;
+            right: 40px;
+        }
+
+        .popup__media {
+            max-width: 35%;
+        }
+
+        .popup__media_left {
+            float: left;
+            margin-right: 3rem;
+        }
+
+        .popup__media_right {
+            float: right;
+            margin-left: 3rem;
+        }
+    }
+
+    @media screen and (max-width: 640px) {
+
+        .popup__title {
+            font-size: 2.2rem;
+        }
+
+        .popup__close {
+            top: 20px;
+            right: 20px;
+        }
+    }
+
+    /*
+* demo page
+*/
+
+    @media screen and (min-width: 768px) {
+
+        html {
+            font-size: 62.5%;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+
+        html {
+            font-size: 50%;
+        }
+    }
+
+    body {
+        font-family: 'Microsoft YaHei', 'Lantinghei SC', 'Open Sans', Arial, 'Hiragino Sans GB', 'STHeiti', 'WenQuanYi Micro Hei', 'SimSun', sans-serif;
+        font-size: 1.6rem;
+        color: #222;
+        background-image: linear-gradient(#fd9c9c, #848deb);
+
+        margin: 0;
+        -webkit-overflow-scrolling: touch;
+        overflow-y: scroll;
+    }
+
+    p {
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    p:not(:last-child) {
+        margin-bottom: 1.5rem;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    a {
+        text-decoration: none;
+        color: #039be5;
+    }
+
+    .page {
+        min-height: 100vh;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -ms-flex-pack: distribute;
+        justify-content: space-around;
+    }
+
+    .page__demo {
+        -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+    }
+
+    .main-container {
+        max-width: 1200px;
+        padding-left: 1rem;
+        padding-right: 1rem;
+
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .page__container {
+        margin: auto;
+    }
+
+    .footer {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        text-align: center;
+        font-size: 1.4rem;
+    }
+
+    .footer__link {
+        color: #fff;
+    }
+
+    @media screen and (min-width: 361px) {
+
+        .footer__container {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+        }
+    }
+
+    @media screen and (max-width: 360px) {
+
+        .melnik909 {
+            display: none;
+        }
+    }
+    footer {
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    width: 100%;
+    clear: both;
+    line-height: 90px;
+  }
+</style>
