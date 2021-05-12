@@ -494,7 +494,6 @@
     </div>
     {% endif %}
     {% if house.status == 2 %}
-    {% if user %}
     <div id="loan_calculation">
       <div class="panel-group" id="accordion">
         <div class="panel panel-default">
@@ -506,6 +505,7 @@
             </h4>
           </div>
           <div id="loan" class="panel-collapse collapse in">
+            {% if user %}
             <form action="" method="post" novalidate style="margin-left: 10px; margin-right: 10px;margin-bottom: 20px;">
               {{ form4.hidden_tag() }}
               <table style="width:100%;">
@@ -622,6 +622,15 @@
                           &nbsp;&nbsp;&nbsp;&nbsp; See your loan according to the table above!
                         </td>
                         {% endif %}
+                        {% else %}
+                        <div style="margin:40px 30px 40px 30px;">
+              <p style="color: red; "><b>You have to log in to calculate loan.</b></p><br>
+              <p><span>Already have an account?</span>
+                <a href="{{ url_for('login') }}"><span class="glyphicon glyphicon-user"></span> Log in</a>
+              </p><br>
+              <p><span>Create an account? </span>
+                <a href="{{ url_for('signup') }}"><span class="glyphicon glyphicon-user"></span> Register</a>
+              </p></div>
                         {% endif %}
                       </tr>
                     </table>
@@ -629,6 +638,7 @@
                 </tr>
               </table>
             </form>
+            {% endif %}
           </div>
         </div>
       </div>
@@ -719,7 +729,7 @@
               </div>
               {% endif %}
               {% else %}
-              <p style="color: red; "><b>You have to log in to comment</b></p><br>
+              <p style="color: red; "><b>You have to log in to comment.</b></p><br>
               <p><span>Already have an account?</span>
                 <a href="{{ url_for('login') }}"><span class="glyphicon glyphicon-user"></span> Log in</a>
               </p><br>
@@ -728,11 +738,12 @@
               </p>
               {% endif %}
             </div>
+            
           </div>
         </div>
       </div>
     </div>
-    {% endif %}
+    
 
 
     {% if house.status == 2 %}
@@ -753,7 +764,7 @@
               {% for i in imgs_re %}
               {% if i.house_id == h.id %}
               <td rowspan="4" style="width: 22%;">
-                <a href="{{ url_for('details', house_id=h.id, user_id_checked=user.id )}}" id="image"><img
+                <a href="{{ url_for('details', house_id=h.id )}}" id="image"><img
                     src="{{ i.filepath }}" alt="{{ i.filepath }}" width="230px" height="170px" class="img-rounded"></a>
               </td>
               {% endif %}
@@ -850,7 +861,7 @@
       </div>
     </div>
   </div>
-
+  {% endif %}
   <div class="lb_gl">
     <h1 class="title" style="color: rgb(0, 0, 0);"><b><span
           class="glyphicon glyphicon-align-right"></span>&nbsp;&nbsp;Popular Houses&nbsp;&nbsp;<span
@@ -891,7 +902,7 @@
       </div>
     </div>
   </div>
-  {% endif %}
+ 
 </body>
 <style>
   .comment {

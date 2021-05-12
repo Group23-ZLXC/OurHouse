@@ -149,7 +149,7 @@ def details():
     pop_houses = House.query.filter(House.status == 2).order_by(House.rank.desc()).limit(11)
     favorites = Favorite.query.filter(Favorite.house_id == house.id).all()
     re_houses = []
-    money_calculate=[0.0,0.0,0.0,0.0,0.0]
+    money_calculate=[1.0,1.0,1.0,1.0,1.0]
     recommendations = Recommendation.query.all()
     # 首付，月总，总利息，总还款额，总本金
     stored_images = Image.query.all()
@@ -291,7 +291,7 @@ def details():
         # return redirect(url_for('login'))
         return render_template('details.html', title='Details', form=form, form1=form1, house=house, owner=owner, commennts=comments, authors=authors,
             stored_recomm=stored_recomm,form3=form3,form4=form4, reply=reply, answers=answers, stored_images=stored_images, image_names=image_names
-            , re_houses=re_houses, pop_houses=pop_houses, recommendations=recommendations, imgs=imgs, imgs_re=imgs_re)
+            , re_houses=re_houses, pop_houses=pop_houses, recommendations=recommendations, imgs=imgs, imgs_re=imgs_re,money_calculate=money_calculate)
 
     return render_template('details.html', title='Details', form=form, form1=form1, house=house, owner=owner, commennts=comments, authors=authors,
         stored_recomm=stored_recomm,form3=form3,form4=form4, reply=reply, answers=answers, stored_images=stored_images, image_names=image_names
