@@ -895,40 +895,42 @@ def pri_pub():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+    string="default"
     if form.validate_on_submit():
         user_in_db = User.query.filter(User.username == form.username.data).first()
         if not user_in_db:
-            flash('No user found with username: {}'.format(form.username.data))
-            return redirect(url_for('login'))
+            string='No user found with username: {}'.format(form.username.data)
+            return render_template('login.html', title='Log In', form=form,string=string)
         if check_password_hash(user_in_db.password_hash, form.password.data):
             session["USERNAME"] = user_in_db.username
             print(session["USERNAME"])
             return redirect(url_for('homepage'))
         # should go to the logged-in page
-        flash('Incorrect Password')
-        return redirect(url_for('login'))
-    return render_template('login.html', title='Log In', form=form)
+        string="Incorrect Password"
+        return render_template('login.html', title='Log In', form=form,string=string)
+    return render_template('login.html', title='Log In', form=form,string=string)
 
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     form = SignupForm()
+    string = "default"
     if form.validate_on_submit():
         if form.password.data != form.password2.data:
-            flash('Passwords do not match!')
-            return redirect(url_for('signup'))
+            string="Passwords do not match!"
+            return render_template('signup.html', title='Register', form=form,string=string)
         user_in_db = User.query.filter(User.username == form.username.data).first()
         if user_in_db:
-            flash('Username already existed!')
-            return redirect(url_for('signup'))
+            string="Username already existed!"
+            return render_template('signup.html', title='Register', form=form,string=string)
         passw_hash = generate_password_hash(form.password.data)
         user = User(username=form.username.data, email=form.email.data, password_hash=passw_hash)
         db.session.add(user)
         db.session.commit()
-        flash('User registered with username:{}'.format(form.username.data))
+        string='User registered with username:{}'.format(form.username.data)
         session["USERNAME"] = user.username
         return redirect(url_for('login'))
-    return render_template('signup.html', title='Register', form=form)
+    return render_template('signup.html', title='Register', form=form,string=string)
 
 @app.route('/logout')
 def logout():

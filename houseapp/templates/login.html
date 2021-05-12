@@ -51,7 +51,9 @@
             {% endfor %}
 
             </p>
-
+            {% if string != "default" %}
+            <div class="alert alert-danger" style="width: 70%;margin-top: 20px;">{{ string }}</div>
+            {% endif %}
             <table width=70% style="margin-top: 20px;">
                 <tr>
                     <td align="left">

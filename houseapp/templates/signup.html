@@ -71,6 +71,9 @@
             {% endfor %}
 
             </p>
+            {% if string != "default" %}
+            <div class="alert alert-danger" style="width: 70%;margin-top: 20px;">{{ string }}</div>
+            {% endif %}
             <div style="width: 70%; margin-top: 20px;margin-bottom:40px;">
                 <p>{{ form.submit(class="btn btn-defult btn-block", width="100%") }}</p>
             </div>
