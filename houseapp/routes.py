@@ -624,9 +624,36 @@ def buy():
         houses_checked = paginate.items
         houses_total = paginate_total.items
     else:
-        return redirect(url_for('login'))
+        return redirect(url_for('buy_default'))
 
     return render_template('buy.html',title='Buy', data=data, user=user_in_db, houses=houses, form=form, form1 = form1, checked=checked_data, checked_1=checked_data_1, paginate=paginate,paginate_total=paginate_total, houses_checked=houses_checked,houses_recent=houses_recent,imgs=imgs,check_user=check_user,houses_total=houses_total,check_owner=check_owner)
+
+@app.route('/buy_default')
+def buy_default():
+    form = BuyForm()
+    data = []
+    
+    houses = House.query.filter(House.status == 2).all()
+    houses_recent = House.query.filter(House.status == 2).order_by(House.id.desc()).limit(4)
+    stored_images = Image.query.all()
+    imgs = []
+    count = []
+    for h in houses:
+        count.append(0)
+    j = 0
+    for h in houses:
+        for i in stored_images:
+            if i.house_id == h.id:
+                if count[j] < 1:
+                    imgs.append(i)
+                    count[j] += 1
+        j += 1
+    page_total = int(request.args.get('page_total', 1))
+    per_page_total = int(request.args.get('per_page_total', 5))
+    paginate_total = House.query.order_by(House.id).filter(House.status == 2).paginate(page_total, per_page_total, error_out=False)
+    houses = paginate_total.items
+    return render_template('buy_default.html',title='Buy_Default', data=data, houses=houses, form=form, paginate_total=paginate_total,houses_recent=houses_recent,imgs=imgs)
+
 
 @app.route('/order')
 def order():
