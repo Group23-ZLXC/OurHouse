@@ -235,7 +235,6 @@ def details():
             money_calculate[2] = money.month*12*money_calculate[1]-house.total_price*(money.price_percentage*0.1)
             money_calculate[3] = money_calculate[1]*money.month*12 + house.total_price*(money.price_percentage*0.1)
             money_calculate[4] = money_calculate[1]*money.month*12
-            return redirect(url_for('details', house_id=house.id))
         else:
             money = Money(user_id=user_in_db.id,house_id=house.id,price_percentage=1,month=5,money_type=1,house_number=1)
             loan = 0.049/12
