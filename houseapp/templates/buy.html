@@ -139,6 +139,7 @@
 <!-- {% for house in houses %}
 <a href=" {{ url_for('details', house_id=house.id )}}">{{ house.id }}</a>
 {% endfor %} -->
+
 <div style="margin: 40px 30px 0px 30px;">
     <hr>
     <table style="width: 100%;">
@@ -490,6 +491,7 @@
 </div>
 {% endfor %}
 <hr style="margin:30px 30px 0 30px;">
+
 <table align="center">
     <tr>
         <td align="center">
@@ -515,7 +517,6 @@
     </tr>
 </table>
 {% endif %}
-<hr style="margin:30px 30px 0 30px;">
 {% if paginate.total != 0 %}
 <table align="center">
     <tr>
@@ -541,6 +542,8 @@
     </tr>
 </table>
 {% endif %}
+<hr style="margin:30px 30px 0 30px;">
+
 <!-- {% for house in checked %}
 
     <div style="margin-left: 30px; margin-right: 30px;margin-top: 25px;">
