@@ -1,7 +1,3 @@
-{% extends "base.html" %}
-
-{% block content %}
-
 <head>    
     <meta charset="utf-8">   
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -9,12 +5,18 @@
 </head>
 
 <body>
-    <div style="margin:65px 30px 10px 30px;">
-        <h3><span class="glyphicon glyphicon-tags" style="color: #646464;"></span>&nbsp;&nbsp;You may have limited too many attributes. Try to make some attributes ' All '.</h3>
+    <table>
+        <tr>
+            <th style="padding:0 0 0 30px;"><a href="{{ url_for('buy') }}" ><span class="glyphicon glyphicon-filter"></span>&nbsp;&nbsp;Back to find your house!</a>
+            </th>
+        </tr>
+    </table>
+    <div style="margin:30px 30px 10px 30px;">
+        <h3><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;<b>You may have limited too many attributes. Try to make some attributes ' All '.</b></h3>
         <hr>
         <img src="{{ url_for('static', filename='img/property.png') }}" style="width: 100%;height: 250px;" />
         <hr>
-        <h3><span class="glyphicon glyphicon-tags" style="color: #646464;"></span>&nbsp;&nbsp;The attribute interval you choose may have very little data. Try to change the interval of each attribute.</h3>
+        <h3><span class="glyphicon glyphicon-tags" style="color: #fdc151;"></span>&nbsp;&nbsp;<b>The attribute interval you choose may have very little data. Try to change the interval of each attribute.</b></h3>
         <p style="color: rgb(153, 153, 153);margin-left: 40px;">The following provides the number of houses in each interval of some properties of this website.</p>
         <hr>
         <table style="width: 100%;">
@@ -203,4 +205,3 @@
 </script>
 </body>
 {% include 'footer.html' %}
-{% endblock %}
