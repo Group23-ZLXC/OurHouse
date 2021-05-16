@@ -59,6 +59,9 @@ class LoginForm(FlaskForm):
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Log In')
 
+class LogoutForm(FlaskForm):
+    submit = SubmitField('Yes')
+
 class RecommendationForm(FlaskForm):
     reason = TextAreaField('Recommendation', validators=[DataRequired()])
     submit = SubmitField('Submit')

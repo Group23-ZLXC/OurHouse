@@ -25,12 +25,15 @@
         <hr>
         <p>Are you sure to log out? </p>
         <hr>
+        <form action="" method="post" novalidate>
+            {{ form.hidden_tag() }}
         <table width="80%" style="margin-bottom: 30px;">
             <tr>
-                <td align="left"><button type="button" class="btn btn-success" onclick="logout()">Yes</button></td>
+                <td align="left">{{ form.submit(class="btn btn-success") }}</td>
                 <td align="right"><button type="button" class="btn btn-danger" onclick="cancel()">Cancel</button></td>
             </tr>
         </table>
+        </form>
 
 
     </div>
@@ -65,9 +68,6 @@
     }
 </style>
 <script>
-    function logout() {
-        window.location.href = "{{ url_for('login') }}";
-    }
     function cancel() {
         window.location.href = "{{ url_for('homepage') }}";
     }

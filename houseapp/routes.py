@@ -1,6 +1,6 @@
 from houseapp import app, db, Config, model
 from flask import render_template, flash, redirect, url_for, session, request, jsonify
-from houseapp.forms import CommentForm, LoginForm, SignupForm, PredictForm, BuyForm, RecommendationForm, EditRecomForm, ReplyForm,EditHouseForm, MoneyForm, LocationForm,ImgForm, ImgForm1
+from houseapp.forms import CommentForm, LoginForm, SignupForm, PredictForm, BuyForm, RecommendationForm, EditRecomForm, ReplyForm,EditHouseForm, MoneyForm, LocationForm,ImgForm, ImgForm1, LogoutForm
 from werkzeug.security import generate_password_hash, check_password_hash
 from houseapp.models import User, House, Comment, Answer, Check, Recommendation, Favorite, Checked, Image, Money, Background
 from houseapp.static import data
@@ -931,12 +931,13 @@ def signup():
         return redirect(url_for('login'))
     return render_template('signup.html', title='Register', form=form,string=string)
 
-@app.route('/logout')
-def logout():
-    # session.pop("USERNAME", None)
-    # return redirect(url_for('login'))
-    session.clear()
-    return render_template('logout.html', title='Log Out')
+@app.route('/logout', methods=['GET', 'POST']) 
+def logout(): 
+    form = LogoutForm() 
+    if form.validate_on_submit(): 
+        session.clear() 
+        return redirect(url_for('login')) 
+    return render_template('logout.html', title='Log Out', form=form) 
 
 @app.route('/personal')
 def personal():
