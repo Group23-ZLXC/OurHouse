@@ -462,9 +462,14 @@
             <hr>
             <table width="60%" style="margin-bottom: 30px;">
               <tr>
+                {% if user %}
                 <td width="20%" style="color:steelblue;"><span class="glyphicon glyphicon-user"></span><b><a
                       href="{{ url_for('visitothers', user_id=owner.id) }}">&nbsp;&nbsp;&nbsp;{{ owner.username
                       }}</b></a></td>
+                {% else %}
+                <td width="20%" style="color:steelblue;"><span class="glyphicon glyphicon-user"></span><b>&nbsp;&nbsp;&nbsp;{{ owner.username
+                  }}</b></td>
+                {% endif %}
                 <td style="color:steelblue"><span class="glyphicon glyphicon-envelope"></span><b>&nbsp;&nbsp;&nbsp;{{
                     owner.email }}</b></td>
               </tr>
